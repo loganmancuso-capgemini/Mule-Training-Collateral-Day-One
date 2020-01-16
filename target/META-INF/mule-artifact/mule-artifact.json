@@ -1,0 +1,26 @@
+{
+  "configs": [
+    "trainingdayone.xml"
+  ],
+  "secureProperties": [],
+  "redeploymentEnabled": true,
+  "name": "com.mycompany:trainingdayone:1.0.0-SNAPSHOT",
+  "minMuleVersion": "4.2.2",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": [
+        "application-types.xml",
+        "examples/Accounts data.json",
+        "log4j2.xml",
+        "trainingdayone.xml"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  }
+}
