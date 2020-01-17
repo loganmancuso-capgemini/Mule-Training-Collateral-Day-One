@@ -39,7 +39,7 @@ output application/xml
 ---
 //payload.Contacts.*Contact [?.@id == "CreatedDate" and ?.@value.isBefore('11/17/2019') ] reduce $$
 {
-	Contacts: payload.Contacts.*Contact filter $.CreatedDate == '4/12/2019'
+	Contacts: payload.Contacts.*Contact filter ( $.CreatedDate < now() - 3 as String {format: "d/M/y"}) and ($.CreatedDate > now() as String {format: "d/M/y"}) 
 	map {
 		ContactName: $.ContactName,
 		Title: $.Title,
