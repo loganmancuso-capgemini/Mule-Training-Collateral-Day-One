@@ -23,21 +23,20 @@ http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/fil
 			<error-mapping targetType="APP:Error" />
 		</s3:get-object>
 		<logger level="INFO" doc:name="Log Inbound Payload" doc:id="6fc121cc-1511-4def-95c5-1052c979e807" message="#[payload]" />
+		<ee:transform doc:name="Create XML Contacts" doc:id="3c618a17-12d6-48d9-baf0-c039182a38f7" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+---
+"Contacts" : payload.Accounts.*Account.Contacts]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
 		<ee:transform doc:name="Validate Date" doc:id="87c8ba4b-c9d0-4c8f-be64-5e8b4b30d2aa">
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
 output application/xml
 ---
-payload.Contacts]]></ee:set-payload>
-			</ee:message>
-		</ee:transform>
-		<ee:transform doc:name="Create XML from JSON Object" doc:id="3c618a17-12d6-48d9-baf0-c039182a38f7" >
-			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
-output application/xml
----
-
-"Contacts" : payload.Accounts.*Account.Contacts]]></ee:set-payload>
+payload.Accounts.Account.Contacts filter (($$ <= 3))]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 		<file:write doc:name="Write XML to File" doc:id="59a4b300-efc3-4581-a78c-7460a97d921d" path='ContactOutput.xml' config-ref="WriteXML_TempDir"/>
