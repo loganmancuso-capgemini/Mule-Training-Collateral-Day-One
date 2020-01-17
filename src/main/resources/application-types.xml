@@ -54,12 +54,24 @@ type SampleJson = {|
 
 ]]></types:shape>
     </types:type>
+    <types:type name="SampleXML" format="xml">
+      <types:example format="xml" element="Contacts" location="examples/Contacts.xml"/>
+    </types:type>
   </types:catalog>
   <types:enrichment select="#3c618a17-12d6-48d9-baf0-c039182a38f7">
     <types:processor-declaration>
       <types:input-event>
         <types:message>
           <types:payload type="SampleJson"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#87c8ba4b-c9d0-4c8f-be64-5e8b4b30d2aa">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="SampleXML"/>
         </types:message>
       </types:input-event>
     </types:processor-declaration>
