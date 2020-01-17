@@ -74,6 +74,11 @@ type SampleJson = {|
           <types:payload type="SampleXML"/>
         </types:message>
       </types:input-event>
+      <types:output-event>
+        <types:message>
+          <types:payload type="SampleXML"/>
+        </types:message>
+      </types:output-event>
     </types:processor-declaration>
   </types:enrichment>
 </types:mule>

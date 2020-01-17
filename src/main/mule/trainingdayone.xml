@@ -31,15 +31,28 @@ output application/xml
 "Contacts" : payload.Accounts.*Account.Contacts]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
+		<file:write doc:name="Write XML to File" doc:id="f1772ce4-2822-4b8d-a5b5-9a5543cffdbd" config-ref="WriteXML_TempDir" path="Original_ContactOutput.xml" />
 		<ee:transform doc:name="Validate Date" doc:id="87c8ba4b-c9d0-4c8f-be64-5e8b4b30d2aa">
 			<ee:message>
-				<ee:set-payload><![CDATA[%dw 2.0
+				<ee:set-payload><![CDATA[ %dw 2.0
 output application/xml
 ---
-payload.Accounts.Account.Contacts filter (($$ <= 3))]]></ee:set-payload>
+//payload.Contacts.*Contact [?.@id == "CreatedDate" and ?.@value.isBefore('11/17/2019') ] reduce $$
+{
+	Contacts: payload.Contacts.*Contact filter $.CreatedDate == '4/12/2019'
+	map {
+		ContactName: $.ContactName,
+		Title: $.Title,
+		Email: $.Email,
+		Phone: $.Phone,
+		DOB: $.DOB,
+		CreatedBy: $.CreatedBy,
+		CreatedDate: $.CreatedDate
+	}
+}]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<file:write doc:name="Write XML to File" doc:id="59a4b300-efc3-4581-a78c-7460a97d921d" path='ContactOutput.xml' config-ref="WriteXML_TempDir"/>
+		<file:write doc:name="Write Modified XML to File" doc:id="59a4b300-efc3-4581-a78c-7460a97d921d" path='Modified_ContactOutput.xml' config-ref="WriteXML_TempDir"/>
 		<ee:transform doc:name="Transform Message" doc:id="fcfd1270-6f68-4dc3-9e68-9bd928fcf1e4" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
