@@ -81,6 +81,7 @@ type: date-only]]></types:shape>
       <types:output-event>
         <types:variables>
           <types:variable name="date" type="date"/>
+          <types:variable name="modified_xml" type="SampleXML"/>
         </types:variables>
       </types:output-event>
     </types:processor-declaration>
